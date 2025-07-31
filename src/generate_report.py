@@ -2,10 +2,11 @@ import markdown
 import pdfkit
 from datetime import datetime
 import os
+import pandas as pd
 
 def read_technical_doc():
     """Read the technical documentation file."""
-    with open('TECHNICAL_DOCUMENTATION.md', 'r', encoding='utf-8') as file:
+    with open('docs/TECHNICAL_DOCUMENTATION.md', 'r', encoding='utf-8') as file:
         return file.read()
 
 def generate_html_report(md_content):
@@ -75,8 +76,10 @@ def save_report(html_content, output_format='html'):
     
     if output_format == 'html':
         output_file = f'report_{timestamp}.html'
-        with open(output_file, 'w', encoding='utf-8') as file:
-            file.write(html_content)
+        output_path = 'reports/report.html'
+        with open(output_path, 'w', encoding='utf-8') as f:
+            f.write(html_content)
+        print(f"HTML report generated: {output_path}")
     elif output_format == 'pdf':
         output_file = f'report_{timestamp}.pdf'
         pdfkit.from_string(html_content, output_file)
@@ -92,7 +95,6 @@ def main():
     
     # Save as HTML
     html_file = save_report(html_content, 'html')
-    print(f"HTML report generated: {html_file}")
     
     # Try to save as PDF if wkhtmltopdf is installed
     try:
@@ -101,6 +103,10 @@ def main():
     except Exception as e:
         print("PDF generation failed. Make sure wkhtmltopdf is installed.")
         print(f"Error: {str(e)}")
+    
+    # Load processed data for analysis
+    df = pd.read_csv('data/processed.csv')
+    print("Data loaded for analysis.")
 
 if __name__ == "__main__":
     main()

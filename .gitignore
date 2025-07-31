@@ -1,0 +1,35 @@
+# Data files
+!/data/
+!/models/
+!/reports/
+*.csv
+*.pkl
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+
+# VS Code
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment
+.env
+venv/
+.env.*
+
+# Others
+*.swp
+*.bak
+*.tmp
