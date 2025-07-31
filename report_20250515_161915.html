@@ -1,0 +1,266 @@
+
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <title>Telco Churn Predictor - Technical Report</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+                margin: 40px;
+                color: #333;
+            }
+            h1, h2, h3 {
+                color: #2c3e50;
+            }
+            code {
+                background-color: #f8f9fa;
+                padding: 2px 4px;
+                border-radius: 4px;
+                font-family: 'Courier New', monospace;
+            }
+            pre {
+                background-color: #f8f9fa;
+                padding: 15px;
+                border-radius: 5px;
+                overflow-x: auto;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                margin: 20px 0;
+            }
+            th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+                text-align: left;
+            }
+            th {
+                background-color: #f2f2f2;
+            }
+            .generated-date {
+                color: #666;
+                font-style: italic;
+                margin-bottom: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="generated-date">Report generated on: 2025-05-15 16:19:15</div>
+        <h1>Telco Churn Predictor - Technical Documentation</h1>
+<h2>1. System Architecture</h2>
+<h3>1.1 Overview</h3>
+<p>The application follows a client-server architecture with three main components:
+- Machine Learning Model (Python)
+- Backend API (Flask)
+- Frontend Interface (HTML/CSS/JavaScript)</p>
+<h3>1.2 Component Interaction</h3>
+<pre><code>[User] → [Frontend (port 8000)] → [Backend API (port 5000)] → [ML Model] → [Response]
+</code></pre>
+<h2>2. Machine Learning Implementation</h2>
+<h3>2.1 Data Processing (<code>train_model.py</code>)</h3>
+<pre><code class="language-python"># Key preprocessing steps:
+1. Load Telco_Churn.csv
+2. Handle missing values:
+   - Convert TotalCharges to numeric
+   - Fill missing values with mean
+3. Encode categorical variables:
+   - Use LabelEncoder for each categorical column
+   - Save encoders for future use
+4. Scale numerical features:
+   - Use StandardScaler
+   - Save scaler for future use
+</code></pre>
+<h3>2.2 Model Training</h3>
+<ul>
+<li>Algorithm: Logistic Regression</li>
+<li>Features: 19 customer attributes</li>
+<li>Target: Binary classification (Churn: Yes/No)</li>
+<li>Performance metrics: Accuracy and probability scores</li>
+</ul>
+<h3>2.3 Saved Components</h3>
+<ul>
+<li><code>model.pkl</code>: Trained Logistic Regression model</li>
+<li><code>label_encoders.pkl</code>: Dictionary of LabelEncoders for categorical variables</li>
+<li><code>scaler.pkl</code>: StandardScaler for numerical features</li>
+</ul>
+<h2>3. Backend Implementation (<code>backend/churn_predictor.py</code>)</h2>
+<h3>3.1 API Endpoints</h3>
+<pre><code class="language-python">POST /predict
+- Accepts: JSON with customer details
+- Returns: Prediction and probability
+</code></pre>
+<h3>3.2 Request Processing</h3>
+<ol>
+<li>Receive customer data</li>
+<li>Create DataFrame with correct feature order</li>
+<li>Apply preprocessing:</li>
+<li>Encode categorical variables</li>
+<li>Scale numerical features</li>
+<li>Make prediction</li>
+<li>Return result</li>
+</ol>
+<h3>3.3 Error Handling</h3>
+<ul>
+<li>Input validation</li>
+<li>Missing feature handling</li>
+<li>Exception handling with appropriate error messages</li>
+</ul>
+<h2>4. Frontend Implementation</h2>
+<h3>4.1 User Interface (<code>frontend/index.html</code>)</h3>
+<ul>
+<li>Form for customer details</li>
+<li>Real-time validation</li>
+<li>Responsive design</li>
+<li>Clear result display</li>
+</ul>
+<h3>4.2 Styling (<code>frontend/styles.css</code>)</h3>
+<ul>
+<li>Modern, clean design</li>
+<li>Color-coded results</li>
+<li>Responsive layout</li>
+<li>User-friendly form elements</li>
+</ul>
+<h3>4.3 JavaScript Functionality</h3>
+<pre><code class="language-javascript">// Key functions:
+1. Form data collection
+2. API communication
+3. Result display
+4. Error handling
+</code></pre>
+<h2>5. Data Flow</h2>
+<h3>5.1 Training Flow</h3>
+<pre><code>[Raw Data] → [Preprocessing] → [Model Training] → [Save Components]
+</code></pre>
+<h3>5.2 Prediction Flow</h3>
+<pre><code>[User Input] → [Frontend] → [API] → [Preprocessing] → [Prediction] → [Response]
+</code></pre>
+<h2>6. Feature Engineering</h2>
+<h3>6.1 Categorical Features</h3>
+<ul>
+<li>gender</li>
+<li>SeniorCitizen</li>
+<li>Partner</li>
+<li>Dependents</li>
+<li>PhoneService</li>
+<li>MultipleLines</li>
+<li>InternetService</li>
+<li>Contract</li>
+<li>PaperlessBilling</li>
+<li>PaymentMethod</li>
+</ul>
+<h3>6.2 Numerical Features</h3>
+<ul>
+<li>tenure</li>
+<li>MonthlyCharges</li>
+<li>TotalCharges</li>
+</ul>
+<h3>6.3 Additional Services</h3>
+<ul>
+<li>OnlineSecurity</li>
+<li>OnlineBackup</li>
+<li>DeviceProtection</li>
+<li>TechSupport</li>
+<li>StreamingTV</li>
+<li>StreamingMovies</li>
+</ul>
+<h2>7. Technical Requirements</h2>
+<h3>7.1 Python Packages</h3>
+<pre><code>flask==3.0.2
+flask-cors==4.0.0
+pandas==2.2.3
+scikit-learn==1.6.1
+joblib==1.4.2
+numpy==2.2.4
+</code></pre>
+<h3>7.2 System Requirements</h3>
+<ul>
+<li>Python 3.x</li>
+<li>Web browser with JavaScript enabled</li>
+<li>Ports 5000 and 8000 available</li>
+</ul>
+<h2>8. Security Considerations</h2>
+<h3>8.1 Current Implementation</h3>
+<ul>
+<li>CORS enabled for development</li>
+<li>Input validation</li>
+<li>Error handling</li>
+</ul>
+<h3>8.2 Recommended Improvements</h3>
+<ul>
+<li>Add authentication</li>
+<li>Implement rate limiting</li>
+<li>Use HTTPS</li>
+<li>Add input sanitization</li>
+<li>Implement logging</li>
+</ul>
+<h2>9. Deployment</h2>
+<h3>9.1 Development Setup</h3>
+<ol>
+<li>Create virtual environment</li>
+<li>Install dependencies</li>
+<li>Train model</li>
+<li>Start backend server</li>
+<li>Start frontend server</li>
+</ol>
+<h3>9.2 Production Considerations</h3>
+<ul>
+<li>Use production WSGI server</li>
+<li>Implement proper security measures</li>
+<li>Set up monitoring</li>
+<li>Configure logging</li>
+<li>Use environment variables</li>
+</ul>
+<h2>10. Future Improvements</h2>
+<h3>10.1 Technical Improvements</h3>
+<ul>
+<li>Add model retraining pipeline</li>
+<li>Implement A/B testing</li>
+<li>Add more features</li>
+<li>Improve error handling</li>
+<li>Add automated testing</li>
+</ul>
+<h3>10.2 Feature Improvements</h3>
+<ul>
+<li>Add user authentication</li>
+<li>Implement user sessions</li>
+<li>Add prediction history</li>
+<li>Add data visualization</li>
+<li>Implement batch predictions</li>
+</ul>
+<h2>11. Troubleshooting Guide</h2>
+<h3>11.1 Common Issues</h3>
+<ol>
+<li>CORS errors</li>
+<li>Missing features</li>
+<li>Model loading errors</li>
+<li>Port conflicts</li>
+<li>Data validation errors</li>
+</ol>
+<h3>11.2 Solutions</h3>
+<ol>
+<li>Check CORS configuration</li>
+<li>Verify feature order</li>
+<li>Check file paths</li>
+<li>Ensure ports are available</li>
+<li>Validate input data</li>
+</ol>
+<h2>12. Performance Considerations</h2>
+<h3>12.1 Current Performance</h3>
+<ul>
+<li>Real-time predictions</li>
+<li>Single-threaded processing</li>
+<li>In-memory model loading</li>
+</ul>
+<h3>12.2 Optimization Opportunities</h3>
+<ul>
+<li>Implement caching</li>
+<li>Add batch processing</li>
+<li>Use async processing</li>
+<li>Implement load balancing</li>
+<li>Add database integration </li>
+</ul>
+    </body>
+    </html>
+    

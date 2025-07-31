@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telco Churn Predictor</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        select, input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            display: none;
+        }
+        .success {
+            background-color: #dff0d8;
+            border: 1px solid #d6e9c6;
+            color: #3c763d;
+        }
+        .error {
+            background-color: #f2dede;
+            border: 1px solid #ebccd1;
+            color: #a94442;
+        }
+
+        .insights-section {
+            margin: 40px 0;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .insights-section h2 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 24px;
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 10px;
+        }
+
+        .insight-card {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            transition: transform 0.2s ease-in-out;
+            border: 1px solid #e9ecef;
+        }
+
+        .insight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .insight-card i {
+            font-size: 24px;
+            color: #4CAF50;
+            margin-bottom: 15px;
+        }
+
+        .insight-card h3 {
+            color: #333;
+            margin: 10px 0;
+            font-size: 18px;
+        }
+
+        .insight-card p {
+            color: #666;
+            line-height: 1.5;
+            margin: 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-chart-line"></i> Telco Churn Predictor</h1>
+            <p class="subtitle">AI-Powered Customer Retention Solution</p>
+        </header>
+
+        <div class="info-cards">
+            <div class="card">
+                <h3><i class="fas fa-bullseye"></i> Business Objective</h3>
+                <p>Reduce customer churn by predicting at-risk customers using AI, enabling proactive retention strategies.</p>
+            </div>
+            <div class="card">
+                <h3><i class="fas fa-question-circle"></i> Problem Statement</h3>
+                <p>Predict customer churn using historical data to enable timely intervention and reduce revenue loss.</p>
+            </div>
+            <div class="card">
+                <h3><i class="fas fa-check-circle"></i> Solution</h3>
+                <p>Machine learning model integrated into a user-friendly web application for real-time predictions.</p>
+            </div>
+        </div>
+
+        <div class="conclusion-section">
+            <div class="conclusion-content">
+                <h2><i class="fas fa-chart-line"></i> Project Impact</h2>
+                <div class="impact-grid">
+                    <div class="impact-item">
+                        <i class="fas fa-users"></i>
+                        <h4>Customer Retention</h4>
+                        <p>Proactively identify at-risk customers</p>
+                    </div>
+                    <div class="impact-item">
+                        <i class="fas fa-chart-bar"></i>
+                        <h4>Revenue Protection</h4>
+                        <p>Reduce revenue loss from churn</p>
+                    </div>
+                    <div class="impact-item">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <h4>Efficiency</h4>
+                        <p>Automated prediction system</p>
+                    </div>
+                    <div class="impact-item">
+                        <i class="fas fa-lightbulb"></i>
+                        <h4>Smart Decisions</h4>
+                        <p>Data-driven retention strategies</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="constraints">
+            <h2><i class="fas fa-exclamation-triangle"></i> Key Features</h2>
+            <div class="constraint-grid">
+                <div class="constraint-item">
+                    <i class="fas fa-bolt"></i>
+                    <span>Real-Time Response</span>
+                </div>
+                <div class="constraint-item">
+                    <i class="fas fa-laptop"></i>
+                    <span>Lightweight Model</span>
+                </div>
+                <div class="constraint-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Data Privacy</span>
+                </div>
+                <div class="constraint-item">
+                    <i class="fas fa-user-friends"></i>
+                    <span>User-Friendly</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="prediction-section">
+            <h2><i class="fas fa-calculator"></i> Predict Customer Churn</h2>
+            <form id="predictionForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="gender">Gender:</label>
+                        <select id="gender" required>
+                            <option value="Female">Female</option>
+                            <option value="Male">Male</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="SeniorCitizen">Senior Citizen:</label>
+                        <select id="SeniorCitizen" required>
+                            <option value="0">No</option>
+                            <option value="1">Yes</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Partner">Partner:</label>
+                        <select id="Partner" required>
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Dependents">Dependents:</label>
+                        <select id="Dependents" required>
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tenure">Tenure (months):</label>
+                        <input type="number" id="tenure" required min="0" max="72">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="PhoneService">Phone Service:</label>
+                        <select id="PhoneService" required>
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MultipleLines">Multiple Lines:</label>
+                        <select id="MultipleLines" required>
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No phone service">No phone service</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="InternetService">Internet Service:</label>
+                        <select id="InternetService" required>
+                            <option value="DSL">DSL</option>
+                            <option value="Fiber optic">Fiber optic</option>
+                            <option value="No">No</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Contract">Contract:</label>
+                        <select id="Contract" required>
+                            <option value="Month-to-month">Month-to-month</option>
+                            <option value="One year">One year</option>
+                            <option value="Two year">Two year</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="PaperlessBilling">Paperless Billing:</label>
+                        <select id="PaperlessBilling" required>
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="PaymentMethod">Payment Method:</label>
+                        <select id="PaymentMethod" required>
+                            <option value="Electronic check">Electronic check</option>
+                            <option value="Mailed check">Mailed check</option>
+                            <option value="Bank transfer (automatic)">Bank transfer (automatic)</option>
+                            <option value="Credit card (automatic)">Credit card (automatic)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MonthlyCharges">Monthly Charges ($):</label>
+                        <input type="number" id="MonthlyCharges" required min="0" step="0.01">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="TotalCharges">Total Charges ($):</label>
+                        <input type="number" id="TotalCharges" required min="0" step="0.01">
+                    </div>
+                </div>
+
+                <button type="submit" class="predict-button">
+                    <i class="fas fa-magic"></i> Predict Churn
+                </button>
+            </form>
+        </div>
+
+        <div id="result" class="result-container"></div>
+
+        <div class="insights-section">
+            <h2><i class="fas fa-chart-pie"></i> Insights from Customer Data</h2>
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <i class="fas fa-file-contract"></i>
+                    <h3>Contract Type Impact</h3>
+                    <p>Month-to-month customers are significantly more likely to churn compared to those on longer-term contracts. Two-year contracts show the highest retention rates.</p>
+                </div>
+                
+                <div class="insight-card">
+                    <i class="fas fa-wifi"></i>
+                    <h3>Internet Service Patterns</h3>
+                    <p>Fiber optic customers have higher churn rates than DSL users, possibly due to higher costs or service quality expectations.</p>
+                </div>
+                
+                <div class="insight-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Tenure Matters</h3>
+                    <p>Customers with shorter tenure (less than 12 months) are more likely to churn, while long-term customers (24+ months) show stronger loyalty.</p>
+                </div>
+                
+                <div class="insight-card">
+                    <i class="fas fa-credit-card"></i>
+                    <h3>Payment Method Influence</h3>
+                    <p>Customers using electronic checks have higher churn rates, while those with automatic payment methods (credit card/bank transfer) show better retention.</p>
+                </div>
+                
+                <div class="insight-card">
+                    <i class="fas fa-dollar-sign"></i>
+                    <h3>Monthly Charges Impact</h3>
+                    <p>Higher monthly charges correlate with increased churn risk, especially for customers paying over $80 per month.</p>
+                </div>
+                
+                <div class="insight-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Service Bundle Effect</h3>
+                    <p>Customers with multiple services (phone, internet, streaming) and additional features (security, tech support) show lower churn rates.</p>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Built with <i class="fas fa-heart"></i> using Machine Learning</p>
+        </footer>
+    </div>
+
+    <script>
+        document.getElementById('predictionForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                gender: document.getElementById('gender').value,
+                SeniorCitizen: parseInt(document.getElementById('SeniorCitizen').value),
+                Partner: document.getElementById('Partner').value,
+                Dependents: document.getElementById('Dependents').value,
+                tenure: parseInt(document.getElementById('tenure').value),
+                PhoneService: document.getElementById('PhoneService').value,
+                MultipleLines: document.getElementById('MultipleLines').value,
+                InternetService: document.getElementById('InternetService').value,
+                OnlineSecurity: 'No',
+                OnlineBackup: 'No',
+                DeviceProtection: 'No',
+                TechSupport: 'No',
+                StreamingTV: 'No',
+                StreamingMovies: 'No',
+                Contract: document.getElementById('Contract').value,
+                PaperlessBilling: document.getElementById('PaperlessBilling').value,
+                PaymentMethod: document.getElementById('PaymentMethod').value,
+                MonthlyCharges: parseFloat(document.getElementById('MonthlyCharges').value),
+                TotalCharges: parseFloat(document.getElementById('TotalCharges').value)
+            };
+
+            try {
+                const resultDiv = document.getElementById('result');
+                resultDiv.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Analyzing customer data...</div>';
+                resultDiv.style.display = 'block';
+
+                const response = await fetch('http://localhost:5000/predict', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const data = await response.json();
+                
+                if (response.ok) {
+                    const probability = (data.probability * 100).toFixed(2);
+                    const isChurn = data.churn_prediction === 'Yes';
+                    
+                    resultDiv.className = isChurn ? 'result-churn' : 'result-no-churn';
+                    resultDiv.innerHTML = `
+                        <div class="result-content">
+                            <h3><i class="fas ${isChurn ? 'fa-exclamation-circle' : 'fa-check-circle'}"></i> Prediction Result</h3>
+                            <div class="prediction-details">
+                                <p class="prediction-status">Churn Prediction: <strong>${data.churn_prediction}</strong></p>
+                                <div class="probability-bar">
+                                    <div class="probability-fill" style="width: ${probability}%"></div>
+                                </div>
+                                <p class="probability-text">Probability: <strong>${probability}%</strong></p>
+                            </div>
+                            ${isChurn ? `
+                                <div class="recommendations">
+                                    <h4><i class="fas fa-lightbulb"></i> Recommended Actions:</h4>
+                                    <ul>
+                                        <li>Reach out to customer for feedback</li>
+                                        <li>Offer personalized retention package</li>
+                                        <li>Schedule follow-up call</li>
+                                    </ul>
+                                </div>
+                            ` : ''}
+                        </div>
+                    `;
+                } else {
+                    resultDiv.className = 'error';
+                    resultDiv.innerHTML = `<p><i class="fas fa-exclamation-triangle"></i> Error: ${data.error}</p>`;
+                }
+            } catch (error) {
+                const resultDiv = document.getElementById('result');
+                resultDiv.className = 'error';
+                resultDiv.innerHTML = `<p><i class="fas fa-exclamation-triangle"></i> Error: ${error.message}</p>`;
+            }
+        });
+    </script>
+</body>
+</html> 
